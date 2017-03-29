@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>My Map Form</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <link rel="stylesheet" href="https://unpkg.com/tachyons/css/tachyons.min.css">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css">
+    </head>
+    <body>
+        <article class="pa4 black-80">
+          <h1 class="f3 f2-m f1-l">My Map Form</h1>
+            <form id="mapform" action="/submit" method="post" accept-charset="utf-8">
+                <fieldset id="attr_fields" class="ba b--transparent ph0 mh0">
+                    <legend class="ph0 mh0 fw6">1. Enter Information</legend>
+                    <div class="mt3">
+                        <label class="f6 b db mb2" for="name">Fictional name <span class="normal black-60">(optional)</span></label>
+                        <input class="pa2 input-reset ba bg-transparent w-100 measure" type="text" name="name" id="name">
+                    </div>
+                    <div class="mt3">
+                        <label class="f6 b db mb2" for="rating">Rating <span class="normal black-60">(required)</span></label>
+                        <select class="pa2 input-reset ba bg-transparent w-100 measure" name="rating" id="rating">
+                            <option value="">-- Select --</option>
+                            <option value="1">1 star - This does not help me</option>
+                            <option value="2">2 stars</option>
+                            <option value="3">3 stars</option>
+                            <option value="4">4 stars</option>
+                            <option value="5">5 stars - Exactly what I need</option>
+                        </select>
+                        <small id="rate-desc" class="f6 black-60 db mb2">How would you rate the usability of this app?</small>
+                    </div>
+                    <div class="mt3">
+                        <label class="f6 b db mb2" for="comments">Comments <span class="normal black-60">(optional)</span></label>
+                        <textarea class="pa2 input-reset ba bg-transparent w-100 measure" name="comments" id="comments"></textarea>
+                        <small id="comments-desc" class="f6 black-60 db mb2">Please provide feedback on what you like/don't like about this app.</small>
+                    </div>
+                </fieldset>
+                <fieldset id="geo_fields" class="ba b--transparent ph0 mh0">
+                    <legend class="ph0 mh0 fw6">2. Select Location</legend>
+                    <p class="normal black-60">Specify the location for this entry by clicking/tapping on the map</p>
+                    <div class="mt3">
+                        <label class="f6 b db mb2" for="latitude">Latitude</label>
+                        <input class="pa2 ba bg-transparent w-100 measure" type="number" min="-90" max="90" step="0.000001" required="true" name="latitude" id="latitude">
+                    </div>
+                    <div class="mt3">
+                        <label class="f6 b db mb2" for="longitude">Longitude</label>
+                        <input class="pa2 ba bg-transparent w-100 measure" type="number" min="-180" max="180" step="0.000001" required="true" name="longitude" id="longitude">
+                    </div>
+                    <div class="mt3">
+                        <div id="map" class="w-75 vh-50"></div>
+                    </div>
+                </fieldset>
+                <div class="mt3">
+                  <input type="submit" class="f6 link dim br3 ph3 pv2 mb2 dib white bg-dark-blue" value="Submit">
+                  <input type="reset" class="f6 link dim br3 ph3 pv2 mb2 dib white bg-mid-gray" value="Reset">
+                  <a href="/submissions" class="f6 link dim br3 ph3 pv2 mb2 dib white bg-mid-gray">View Submissions</a>
+                </div>
+            </form>
+        </article>
+        <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
+        <script src="https://unpkg.com/esri-leaflet@2.0.7/dist/esri-leaflet.js"></script>
+        <script src="client.js"></script>
+  </body>
+</html>

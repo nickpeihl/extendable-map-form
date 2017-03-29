@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+      <meta charset="utf-8">
+      <title>Geo Form Leaflet</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+      <link rel="stylesheet" href="https://unpkg.com/tachyons/css/tachyons.min.css">
+      <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css">
+    <style>
+      #map {
+        width: 100vw;
+        height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/esri-leaflet@2.0.7/dist/esri-leaflet.js"></script>
+    <script>
+      var map = L.map('map').setView([0, 0], 2)
+      L.esri.basemapLayer('Topographic').addTo(map)
+      var markers = L.geoJson(null)
+      .bindPopup(popupProperties)
+      .addTo(map)
+      
+      var worker = new Worker('worker.js')
+      var ready = false
+      
+      worker.onmessage = function (e) {
+        if (e.data.ready) {
+          ready = true
+          update()
+        } else {
+          markers.clearLayers()
+          markers.addData(e.data)
+        }
+      }
+      
+      function update() {
+        if (!ready) return
+        var bounds = map.getBounds()
+        worker.postMessage({
+          bbox: [ [ bounds.getWest(), bounds.getSouth() ], [ bounds.getEast(), bounds.getNorth() ] ],
+          zoom: map.getZoom()
+        })
+        
+        map.on('moveend', update)
+      }
+      
+      function popupProperties (layer) {
+        var html = Object.keys(layer.feature.properties).map(function (key) {
+          if (layer.feature.properties[key]) {
+            return '<p>' + key + ': ' + layer.feature.properties[key] + '</p>'
+          }
+        })
+        
+        return html.join('')
+      }
+    </script>
+  </body>
+</html>

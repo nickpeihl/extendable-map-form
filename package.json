@@ -1,0 +1,36 @@
+{
+	"name": "extendable-map-form",
+	"version": "0.1.0",
+	"description": "If you can edit an HTML form, you can create a custom capture form for mapping data",
+	"main": "server.js",
+	"scripts": {
+		"start": "node server.js"
+	},
+	"dependencies": {
+		"fd-chunk-store": "^2.0.0",
+		"hyperlog-kdb-index": "^4.0.1",
+		"level": "^1.6.0",
+		"hyperlog": "^4.11.1",
+		"kdb-tree-store": "^3.1.0",
+		"body": "^5.1.0",
+		"ecstatic": "^2.1.0",
+		"xtend": "^4.0.1",
+		"routes": "^2.1.0",
+		"@turf/helpers": "^3.10.0",
+		"run-series": "^1.1.4"
+	},
+	"engines": {
+		"node": "6.9.x"
+	},
+	"repository": {
+		"url": "http://github.com/nickpeihl/extendable-map-form"
+	},
+	"license": "Apache-2.0",
+	"keywords": [
+    "leaflet",
+    "gis",
+    "map",
+    "glitch",
+    "geo"
+	]
+}
